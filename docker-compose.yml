@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5012:80"
+    volumes:
+      - .:/src
+    depends_on:
+      - db
+    networks:
+      - api-network
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=192.168.0.119;Port=3308;Database=tests_api;Uid=root;Pwd=root
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tests_api
+      - MYSQL_TCP_PORT=3308
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - 3308:3308
+    expose:
+      - 3308
+    volumes:
+      - MySQL:/var/lib/mysql
+    networks:
+      - api-network
+
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  MySQL: 
+    driver: local
