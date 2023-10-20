@@ -9,8 +9,6 @@ public class CustomAuthorization
     public static bool ValidadeClains(HttpContext context, string clainName, string clainValue)
     {
 
-        
-
 
         return false;
         

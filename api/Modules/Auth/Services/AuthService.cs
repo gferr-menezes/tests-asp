@@ -17,7 +17,7 @@ public class AuthService : IAuthService
 
         if (result == null)
         {
-            throw new CustomExeption("User not found", 404);
+            throw new CustomExeption("Usuário ou senha inválidos", 403);
         }
 
         return result;

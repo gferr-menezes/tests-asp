@@ -45,9 +45,19 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("profiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb2"),
+                            CreatedAt = new DateTime(2023, 10, 20, 17, 38, 13, 291, DateTimeKind.Utc).AddTicks(3770),
+                            Name = "guilherme ferreira",
+                            UserId = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1")
+                        });
                 });
 
             modelBuilder.Entity("UserModel", b =>
@@ -73,17 +83,31 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1"),
+                            CreatedAt = new DateTime(2023, 10, 20, 17, 38, 13, 287, DateTimeKind.Utc).AddTicks(3780),
+                            Email = "test@mail.com",
+                            Password = "zIVCKEz8wjw/GSaw8nyrh59ztQup5gv/eQ5dyWhckF8="
+                        });
                 });
 
             modelBuilder.Entity("ProfileModel", b =>
                 {
                     b.HasOne("UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Profile")
+                        .HasForeignKey("ProfileModel", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserModel", b =>
+                {
+                    b.Navigation("Profile");
                 });
 #pragma warning restore 612, 618
         }

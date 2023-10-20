@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,10 +11,10 @@ namespace api;
 
 
 [ApiController]
+[Authorize]
 [Route("api/users")]
 public class UserController : ControllerBase
 {
-
     private readonly ICompositeViewEngine _viewEngine;
 
     private readonly IUserService _service;
@@ -25,7 +26,7 @@ public class UserController : ControllerBase
         _service = service;
         _tempDataProvider = tempDataProvider;
     }
-
+    
     [HttpPost]
     public async Task<UserResponseDto> Create([FromBody] UserRequestDto requestDto)
     {

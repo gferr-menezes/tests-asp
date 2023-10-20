@@ -55,10 +55,21 @@ namespace api.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "id", "created_at", "email", "password" },
+                values: new object[] { new Guid("a2bf83f7-1e91-438a-a204-56064519acb1"), new DateTime(2023, 10, 20, 17, 38, 13, 287, DateTimeKind.Utc).AddTicks(3780), "test@mail.com", "zIVCKEz8wjw/GSaw8nyrh59ztQup5gv/eQ5dyWhckF8=" });
+
+            migrationBuilder.InsertData(
+                table: "profiles",
+                columns: new[] { "id", "avatar_url", "created_at", "name", "user_id" },
+                values: new object[] { new Guid("a2bf83f7-1e91-438a-a204-56064519acb2"), null, new DateTime(2023, 10, 20, 17, 38, 13, 291, DateTimeKind.Utc).AddTicks(3770), "guilherme ferreira", new Guid("a2bf83f7-1e91-438a-a204-56064519acb1") });
+
             migrationBuilder.CreateIndex(
                 name: "IX_profiles_user_id",
                 table: "profiles",
-                column: "user_id");
+                column: "user_id",
+                unique: true);
         }
 
         /// <inheritdoc />
