@@ -78,6 +78,12 @@ app.UseStaticFiles();
 
 app.MapControllers();
 
+// cors
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 // execute migrations only production
 if (app.Environment.IsProduction())
 {

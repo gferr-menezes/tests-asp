@@ -11,7 +11,7 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20231020173813_FirstMigration")]
+    [Migration("20231020201625_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -57,7 +57,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb2"),
-                            CreatedAt = new DateTime(2023, 10, 20, 17, 38, 13, 291, DateTimeKind.Utc).AddTicks(3770),
+                            CreatedAt = new DateTime(2023, 10, 20, 20, 16, 25, 706, DateTimeKind.Utc).AddTicks(6730),
                             Name = "guilherme ferreira",
                             UserId = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1")
                         });
@@ -91,7 +91,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1"),
-                            CreatedAt = new DateTime(2023, 10, 20, 17, 38, 13, 287, DateTimeKind.Utc).AddTicks(3780),
+                            CreatedAt = new DateTime(2023, 10, 20, 20, 16, 25, 702, DateTimeKind.Utc).AddTicks(7730),
                             Email = "test@mail.com",
                             Password = "zIVCKEz8wjw/GSaw8nyrh59ztQup5gv/eQ5dyWhckF8="
                         });

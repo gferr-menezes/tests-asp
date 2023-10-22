@@ -8,9 +8,7 @@ public class UniqueValidator : ValidationAttribute
 
     string TableName { get; set; }
 
-    public UniqueValidator(
-        string TableName
-    )
+    public UniqueValidator(string TableName)
     {
         this.TableName = TableName;
     }
@@ -28,7 +26,7 @@ public class UniqueValidator : ValidationAttribute
         }
 
         var sql = $"SELECT * FROM {TableName} WHERE {property.Name} = '{propertyValue}'";
-        
+
         using (var connection = new MySqlConnection(conString))
         {
             connection.Open();

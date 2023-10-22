@@ -9,6 +9,7 @@ public class BaseModel
     [Column("id")]
     public Guid Id { get; set; }
 
+    [Required]
     [Column("created_at")]
     public DateTime CreatedAt { get; set; }
 

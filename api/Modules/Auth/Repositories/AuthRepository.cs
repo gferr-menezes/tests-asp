@@ -21,32 +21,42 @@ public class AuthRepository : IAuthRepository
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == requestDto.Email);
 
-        if(user == null) {
+        if (user == null)
+        {
             return null;
         }
 
-        var checkPassword = UserModel.VerifyPassword(requestDto.Password, user.Password); 
+        var checkPassword = UserModel.VerifyPassword(requestDto.Password, user.Password);
 
-        if(checkPassword) {
-            return new LoginResponseDto {
-                Token = GenerateJwtToken(),
+        if (checkPassword)
+        {
+            return new LoginResponseDto
+            {
+                Token = GenerateJwtToken(user.Id),
                 RefreshToken = null
             };
-        } else {
+        }
+        else
+        {
             return null;
         }
 
     }
 
-    public string GenerateJwtToken() {
+    public string GenerateJwtToken(Guid userId)
+    {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
 
-        var token = tokenHandler.CreateToken(new SecurityTokenDescriptor {
+        var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
+        {
             Issuer = _jwtConfig.Issuer,
             Audience = _jwtConfig.Audience,
             Expires = DateTime.UtcNow.AddHours(6),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            Claims = new Dictionary<string, object> {
+                { "userId", userId }
+            }
         });
 
         return tokenHandler.WriteToken(token);

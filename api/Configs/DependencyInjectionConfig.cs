@@ -1,9 +1,9 @@
 using api;
 
-public static class DependencyInjectionConfig {
-
-
-    public static IServiceCollection ResolveDependencies(this IServiceCollection services) {
+public static class DependencyInjectionConfig
+{
+    public static IServiceCollection ResolveDependencies(this IServiceCollection services)
+    {
 
         services.AddScoped<ApiDbContext>();
 
@@ -16,6 +16,10 @@ public static class DependencyInjectionConfig {
         services.AddScoped<IAuthService, AuthService>();
 
         services.AddScoped<IProfileRepository, ProfileRepository>();
+
+        services.AddScoped<IPropertyService, PropertyService>();
+
+        services.AddScoped<IPropertyRepository, PropertyRepository>();
 
         return services;
     }

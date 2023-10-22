@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api;
 
@@ -10,9 +11,11 @@ using api;
 namespace api.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231020201852_PropertyMigration")]
+    partial class PropertyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,60 +57,10 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb2"),
-                            CreatedAt = new DateTime(2023, 10, 21, 10, 17, 22, 489, DateTimeKind.Utc).AddTicks(9110),
+                            CreatedAt = new DateTime(2023, 10, 20, 20, 18, 52, 747, DateTimeKind.Utc).AddTicks(7680),
                             Name = "guilherme ferreira",
                             UserId = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1")
                         });
-                });
-
-            modelBuilder.Entity("PropertyImageModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("file_name");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("file_path");
-
-                    b.Property<int>("FileSize")
-                        .HasColumnType("int")
-                        .HasColumnName("file_size");
-
-                    b.Property<string>("FileType")
-                        .IsRequired()
-                        .HasColumnType("varchar(5)")
-                        .HasColumnName("file_type");
-
-                    b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime")
-                        .HasColumnName("updated_at");
-
-                    b.Property<Guid>("UploadedById")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("uploaded_by_id");
-
-                    b.Property<Guid>("property_id")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UploadedById");
-
-                    b.HasIndex("property_id");
-
-                    b.ToTable("property_images");
                 });
 
             modelBuilder.Entity("PropertyModel", b =>
@@ -226,7 +179,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a2bf83f7-1e91-438a-a204-56064519acb1"),
-                            CreatedAt = new DateTime(2023, 10, 21, 10, 17, 22, 486, DateTimeKind.Utc).AddTicks(440),
+                            CreatedAt = new DateTime(2023, 10, 20, 20, 18, 52, 743, DateTimeKind.Utc).AddTicks(3670),
                             Email = "test@mail.com",
                             Password = "zIVCKEz8wjw/GSaw8nyrh59ztQup5gv/eQ5dyWhckF8="
                         });
@@ -241,25 +194,6 @@ namespace api.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PropertyImageModel", b =>
-                {
-                    b.HasOne("UserModel", "UploadedBy")
-                        .WithMany()
-                        .HasForeignKey("UploadedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PropertyModel", "Property")
-                        .WithMany()
-                        .HasForeignKey("property_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Property");
-
-                    b.Navigation("UploadedBy");
                 });
 
             modelBuilder.Entity("PropertyModel", b =>
